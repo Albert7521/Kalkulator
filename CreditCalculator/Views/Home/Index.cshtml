@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Калкулатор";
+}
+@model CreditInformationModel
+
+<style>
+    .input-validation-error {
+        border-color: red;
+    }    
+</style>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<body class="card-body">
+    <form asp-controller="Home" asp-action="Count" method="post">
+        <div class="form-group">  
+            <label for="Sum">Сумма займа</label>
+            <input type="text" asp-for="Sum" class="form-control" placeholder="В рублях" />
+            <span asp-validation-for="Sum" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Time">Срок займа</label>
+            <input type="text" asp-for="Time" class="form-control" placeholder="В месяцах" />
+            <span asp-validation-for="Time" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Rate">Ставка займа</label>
+            <input type="text" asp-for="Rate" class="form-control" placeholder="В год" />
+            <span asp-validation-for="Rate" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary" asp-controller="Home" asp-action="Index" style="margin-top:20px">Рассчитать</button>
+        </div>
+    </form>
+</body>
+    
