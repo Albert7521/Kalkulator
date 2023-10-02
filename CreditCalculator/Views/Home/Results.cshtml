@@ -5,36 +5,33 @@
 
 <div>
     <div class="col-md-6">
-        <table class="table-bordered">
-            <tr>
-                <th>Номер платежа</th>
-                <th width="100%">Дата платежа</th>
-                <th>Размер платежа по телу</th>
-                <th>Размер платежа по %</th>
-                <th>Остаток основного долга</th>
-            </tr>
-            @foreach (var a in Model)
-            {
-                <tr>
-                    <td> @a.ID </td>
-                    <td> @a.Date </td>
-                    <td> @String.Format("{0:#,0.00}", a.Body) </td>
-                    <td> @String.Format("{0:#,0.00}", a.Percent) </td>
-                    <td> @String.Format("{0:#,0.00}", a.Balance) </td>
-                </tr>
-            }
-        </table>
-        <div style="margin-left: auto; margin-right: auto; text-align: center;">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col" class="text-center">Номер платежа</th>
+                        <th scope="col" class="text-center">Дата платежа</th>
+                        <th scope="col" class="text-center">Размер платежа по телу</th>
+                        <th scope="col" class="text-center">Размер платежа по %</th>
+                        <th scope="col" class="text-center">Остаток основного долга</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in Model)
+                    {
+                        <tr>
+                            <th scope="row"> @a.ID </th>
+                            <td class="text-center"> @a.Date </td>
+                            <td class="text-center"> @String.Format("{0:#,0.00}", a.Body) </td>
+                            <td class="text-center"> @String.Format("{0:#,0.00}", a.Percent) </td>
+                            <td class="text-center"> @String.Format("{0:#,0.00}", a.Balance) </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center mt-3">
             Итого переплат: @String.Format("{0:#,0.00}", TempData["totalOverpaid"]) руб.
         </div>
     </div>
-
-    <style type="text/css">
-        th {
-            background: #BEBEBE;
-        }
-        tr {
-            text-align : center;
-        }
-    </style>
 </div>
