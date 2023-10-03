@@ -1,0 +1,37 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+
+#clients {
+    width: 50%;
+    float: left;
+    margin-right: 20px;
+}
+
+#form {
+    width: 40%;
+    float: left;
+}
+
+input, button {
+    margin-bottom: 10px;
+    display: block;
+}
+
+button {
+    padding: 5px 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+    li span {
+        font-weight: bold;
+        margin-right: 10px;
+    }
