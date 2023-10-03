@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Управление клиентами</title>
+</head>
+<body class="card-body">
+    <h1>Управление клиентами</h1>
+
+    <form id="clientForm" method="post" action="your_server_url">
+        <input type="hidden" id="clientId" name="clientId" value="0">
+        <input type="hidden" id="action" name="action" value="">
+
+        <div class="mb-3" ><input class="form-control" type="text" id="firstName" name="firstName" placeholder="Имя" required><br></div>
+        <div class="mb-3" ><input class="form-control" type="text" id="lastName" name="lastName" placeholder="Фамилия" required><br></div>
+        <div class="mb-3" ><input class="form-control" type="email" id="email" name="email" placeholder="Почта" required><br></div>        
+        
+        <div class="mb-3"><button class="btn btn-primary" type="submit">Сохранить</button> <button class="btn btn-primary" type="button" id="resetBtn" onclick="resetForm()">Сбросить</button></div>
+        <div class="mb-3"></div>
+    </form>
+    <ul id="clientList">
+        <!-- Client data will be dynamically populated here -->
+    </ul>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,64 +1,62 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
+using static ClientManagement;
 
 public class ClientManagement
 {
-    private string connectionString = "/l";
 
-    public DataTable GetAllClients()
+    public class Client
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query = "SELECT * FROM Clients";
-            SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-            DataTable clientsTable = new DataTable();
-            adapter.Fill(clientsTable);
-            return clientsTable;
-        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+
+        // Другие свойства клиента
+
     }
-
-    public void AddClient(string firstName, string lastName, string email)
+    public class ApplicationDbContext : DbContext
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            string query = "INSERT INTO Clients (FirstName, LastName, Email) VALUES (@FirstName, @LastName, @Email)";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@FirstName", firstName);
-            command.Parameters.AddWithValue("@LastName", lastName);
-            command.Parameters.AddWithValue("@Email", email);
-
-            connection.Open();
-            command.ExecuteNonQuery();
-        }
+        public DbSet<Client> Clients { get; set; }
+        // Другие DbSet'ы для других сущностей, если нужно
     }
-
-    public void UpdateClient(int clientID, string firstName, string lastName, string email)
+    public class ClientRepository
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        private readonly ApplicationDbContext _context;
+
+        public ClientRepository(ApplicationDbContext context)
         {
-            string query = "UPDATE Clients SET FirstName = @FirstName, LastName = @LastName, Email = @Email WHERE ClientID = @ClientID";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@ClientID", clientID);
-            command.Parameters.AddWithValue("@FirstName", firstName);
-            command.Parameters.AddWithValue("@LastName", lastName);
-            command.Parameters.AddWithValue("@Email", email);
-
-            connection.Open();
-            command.ExecuteNonQuery();
+            _context = context;
         }
-    }
 
-    public void DeleteClient(int clientID)
-    {
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        public void Create(Client client)
         {
-            string query = "DELETE FROM Clients WHERE ClientID = @ClientID";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@ClientID", clientID);
-
-            connection.Open();
-            command.ExecuteNonQuery();
+            _context.Clients.Add(client);
+            _context.SaveChanges();
         }
+
+        public Client GetById(int id)
+        {
+            return _context.Clients.Find(id);
+        }
+
+        public void Update(Client client)
+        {
+            _context.Entry(client).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var client = GetById(id);
+            if (client != null)
+            {
+                _context.Clients.Remove(client);
+                _context.SaveChanges();
+            }
+        }
+
     }
 }

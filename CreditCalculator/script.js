@@ -6,9 +6,14 @@ document.getElementById("clientForm").addEventListener("submit", function (event
     let lastName = document.getElementById("lastName").value;
     let email = document.getElementById("email").value;
 
-    // Use AJAX or fetch to send data to the server and update the database
-    // Update the client list after successful submission
-    updateClientList();
+    // Use a hidden input field to indicate the action (add or update)
+    let action = clientId === "0" ? "add" : "update";
+
+    // Set the action to be submitted
+    document.getElementById("action").value = action;
+
+    // Submit the form (will cause a page reload)
+    document.getElementById("clientForm").submit();
 });
 
 function resetForm() {
@@ -18,7 +23,13 @@ function resetForm() {
     document.getElementById("email").value = "";
 }
 
-function updateClientList() {
-    // Use AJAX or fetch to retrieve client data from the server and update the list
-    // Populate the clientList UL with the retrieved client data
+function deleteClient(clientId) {
+    // Set the client ID to be deleted
+    document.getElementById("clientId").value = clientId;
+
+    // Set the action to be delete
+    document.getElementById("action").value = "delete";
+
+    // Submit the form (will cause a page reload)
+    document.getElementById("clientForm").submit();
 }
