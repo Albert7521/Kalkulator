@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <None Include="Views\Home\Create.cshtml" />
+    <None Include="wwwroot\css\create.css" />
+    <None Include="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,6 @@
-﻿using Kalkulator.Models;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
-namespace Kalkulator
+namespace Kalkulator.Models
 {
     public class ClientRepository
     {
